@@ -1,12 +1,12 @@
 #include <iostream>
-#include <cstring> //если не берет авто strlen
+#include <cstring> //РµСЃР»Рё РЅРµ Р±РµСЂРµС‚ Р°РІС‚Рѕ strlen
 
 using namespace std;
 
 class myString {
 private:
-	int len; //размер массива
-	char* str; //указатель на дим массив
+	int len; //СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
+	char* str; //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РґРёРј РјР°СЃСЃРёРІ
 public:
 	myString() {
 		len = 0;
@@ -24,59 +24,59 @@ public:
 		delete[] str;
 	}
 
-	//перегрузка ввода и вывода
+	//РїРµСЂРµРіСЂСѓР·РєР° РІРІРѕРґР° Рё РІС‹РІРѕРґР°
 	friend istream& operator >> (istream&, myString&);
 	friend ostream& operator << (ostream& out, myString& S);
 
-	//возвращаем длину строки
+	//РІРѕР·РІСЂР°С‰Р°РµРј РґР»РёРЅСѓ СЃС‚СЂРѕРєРё
 	int length() { return len; }
 
-	//возвращаем элемент с заданным индексом
+	//РІРѕР·РІСЂР°С‰Р°РµРј СЌР»РµРјРµРЅС‚ СЃ Р·Р°РґР°РЅРЅС‹Рј РёРЅРґРµРєСЃРѕРј
 	char& operator[] (int index) { return str[index]; }
 
-	//конструктор копирования
+	//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
 	myString(const myString& S);
-	//перегрузка оператора +
+	//РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° +
 	myString operator+(const myString &S);
-	//перегрузка оператора =
+	//РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° =
 	myString& operator=(const myString& S);
-	//перегрузка оператора *
+	//РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂР° *
 	myString& operator*(int n);
-	//перегрузка операторов сравнения
+	//РїРµСЂРµРіСЂСѓР·РєР° РѕРїРµСЂР°С‚РѕСЂРѕРІ СЃСЂР°РІРЅРµРЅРёСЏ
 	bool operator==(myString S);
 	bool operator!=(myString S);
 	bool operator<(myString S);
 	bool operator>(myString S);
 	bool operator<=(myString S);
 	bool operator>=(myString S);
-	//смена регистра буквы
+	//СЃРјРµРЅР° СЂРµРіРёСЃС‚СЂР° Р±СѓРєРІС‹
 	void to_lower();
 	void to_upper();
-	//добавляение символа в конец
+	//РґРѕР±Р°РІР»РµРЅРёРµ СЃРёРјРІРѕР»Р° РІ РєРѕРЅРµС†
 	void push_back(char tmp);
-	//вставка символа
+	//РІСЃС‚Р°РІРєР° СЃРёРјРІРѕР»Р°
 	void insert(int index, char tmp);
-	//поиск подстроки
+	//РїРѕРёСЃРє РїРѕРґСЃС‚СЂРѕРєРё
 	int find(myString t);
 };
 
 istream& operator >> (istream& in, myString& S) {
 	char buffer[100000];
 	in.getline(buffer, 100000);
-	//получаем длину входной строки
+	//РїРѕР»СѓС‡Р°РµРј РґР»РёРЅСѓ РІС…РѕРґРЅРѕР№ СЃС‚СЂРѕРєРё
 	S.len = strlen(buffer);
 	if (buffer[strlen(buffer) - 1] == '\r' || buffer[strlen(buffer) - 1] == '\n') {
 		S.len--;
 	}
-	//выделяем память под массив
+	//РІС‹РґРµР»СЏРµРј РїР°РјСЏС‚СЊ РїРѕРґ РјР°СЃСЃРёРІ
 	S.str = new char[S.len + 1];
-	//переносим символы из буфера в строку
+	//РїРµСЂРµРЅРѕСЃРёРј СЃРёРјРІРѕР»С‹ РёР· Р±СѓС„РµСЂР° РІ СЃС‚СЂРѕРєСѓ
 	for (unsigned int i = 0; i < S.len; i++) {
 		S.str[i] = buffer[i];
 	}
-	//добавляем спецсимвол! \0
+	//РґРѕР±Р°РІР»СЏРµРј СЃРїРµС†СЃРёРјРІРѕР»! \0
 	S.str[S.len] = '\0';
-	//возвращаем поток
+	//РІРѕР·РІСЂР°С‰Р°РµРј РїРѕС‚РѕРє
 	return in;
 }
 ostream& operator << (ostream& out, myString& S) {
